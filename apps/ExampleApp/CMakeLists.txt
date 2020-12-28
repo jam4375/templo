@@ -1,4 +1,7 @@
-add_executable(ExampleApp main.cpp)
+configure_file(main.cpp main.cpp)
 
-target_include_directories(ExampleApp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(ExampleApp ExampleLib)
+add_executable(ExampleApp "${CMAKE_CURRENT_BINARY_DIR}/main.cpp")
+
+target_include_directories(ExampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(ExampleApp ExampleLib cxxopts)
