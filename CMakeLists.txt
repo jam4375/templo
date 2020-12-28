@@ -1,32 +1,30 @@
-cmake_minimum_required(VERSION 3.12.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 project(templo CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+find_package(Git REQUIRED)
+execute_process(
+  COMMAND git describe --tags --dirty
+  OUTPUT_VARIABLE GIT_VERSION
+  OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_QUIET)
 
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-    message(STATUS "Loading Clang cmake settings")
-    include(${CMAKE_SOURCE_DIR}/config/cmake/Clang.cmake)
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    message(STATUS "Loading GCC cmake settings")
-    include(${CMAKE_SOURCE_DIR}/config/cmake/GCC.cmake)
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
-#    include(${CMAKE_SOURCE_DIR}/config/cmake/ICC.cmake)
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-#    include(${CMAKE_SOURCE_DIR}/config/cmake/MSVC.cmake)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+# Set compiler settings:
+include("${CMAKE_SOURCE_DIR}/config/cmake/compilers/compilers.cmake")
+
+# Setup external dependencies:
+include("${CMAKE_SOURCE_DIR}/config/cmake/external/external.cmake")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Setup testing
-enable_testing()
-
 add_subdirectory(apps)
-add_subdirectory(lib)
+add_subdirectory(libs)

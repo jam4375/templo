@@ -1,7 +1,6 @@
-#include "example_lib_code.h"
+#include "ExampleLib/ExampleLib.h"
 
-int main()
-{
+int main() {
     PrintMessage("Hello world");
 
     return 0;

@@ -1,0 +1,11 @@
+set(CMAKE_CXX_STANDARD 20)
+
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+  message(STATUS "Loading Clang cmake settings")
+  include(${CMAKE_SOURCE_DIR}/config/cmake/compilers/Clang.cmake)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  message(STATUS "Loading GCC cmake settings")
+  include(${CMAKE_SOURCE_DIR}/config/cmake/compilers/GCC.cmake)
+else()
+  message(FATAL_ERROR "Unsupported compiler: ${CMAKE_CXX_COMPILER_ID}")
+endif()
