@@ -1,10 +1,10 @@
 #include "ExampleLib/ExampleLib.h"
 
-#include "cxxopts.hpp"
+#include <cxxopts.hpp>
 
 int main(int argc, char **argv) {
     cxxopts::Options options(
-        "ExampleApp", "ExampleApp: example application for the templo template repository (Version: ${GIT_VERSION})");
+        "ExampleApp", "ExampleApp: example application for the templo template repository (Version: ${${CMAKE_PROJECT_NAME}_GIT_VERSION})");
 
     // clang-format off
     options.add_options()
