@@ -33,3 +33,6 @@
 
 # Build directory
 build
+
+# Code editor configuration directories
+.vscode

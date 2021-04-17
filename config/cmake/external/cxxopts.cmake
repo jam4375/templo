@@ -1,12 +1,16 @@
 include(FetchContent)
 FetchContent_Declare(
-  cxxopts-external
-  GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
-  GIT_TAG v2.2.1)
+    cxxopts-external
+    GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
+    GIT_TAG v2.2.1)
 
 # Don't build unused targets:
-set(CXXOPTS_BUILD_EXAMPLES OFF CACHE BOOL "Set to ON to build examples" FORCE)
-set(CXXOPTS_BUILD_TESTS OFF CACHE BOOL "Set to ON to build tests" FORCE)
+set(CXXOPTS_BUILD_EXAMPLES
+    OFF
+    CACHE BOOL "Set to ON to build examples" FORCE)
+set(CXXOPTS_BUILD_TESTS
+    OFF
+    CACHE BOOL "Set to ON to build tests" FORCE)
 
 FetchContent_MakeAvailable(cxxopts-external)
 
