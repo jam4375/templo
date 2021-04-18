@@ -7,7 +7,7 @@ function(configure_executable)
 
     message(
         STATUS
-            "Configuring library ${EXE_NAME} with target \"${ExecutableTargetName}\" and alias \"${PROJECT_NAME}::${EXE_NAME}\""
+            "Configuring executable ${EXE_NAME} with target \"${ExecutableTargetName}\" and alias \"${PROJECT_NAME}::${EXE_NAME}\""
     )
 
     add_executable(${ExecutableTargetName} ${EXE_SOURCE_FILES})

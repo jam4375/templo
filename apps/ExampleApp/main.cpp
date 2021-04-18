@@ -30,6 +30,7 @@ auto main(int argc, char **argv) -> int {
             std::exit(0);
         }
 
+        // Entry point:
         return templo::ExampleApp::Run();
     } catch (const cxxopts::option_not_exists_exception &e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
