@@ -1,4 +1,4 @@
-function(CreateLibrary LibraryName LibrarySourceFiles LibrarySourceDirectory LibraryInterfaceDirectory)
+function(configure_library LibraryName LibrarySourceFiles LibrarySourceDirectory LibraryInterfaceDirectory)
     set(LibraryTargetName ${PROJECT_NAME}_${LibraryName})
 
     message(

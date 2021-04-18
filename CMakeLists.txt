@@ -19,7 +19,7 @@ endif()
 
 # Add custom cmake modules:
 list(APPEND CMAKE_MODULE_PATH "${${PROJECT_NAME}_SOURCE_DIR}/config/cmake/modules/")
-include(CreateLibrary)
+include(ConfigureLibrary)
 
 # Set compiler settings:
 include("${${PROJECT_NAME}_SOURCE_DIR}/config/cmake/compilers/compilers.cmake")

@@ -1,5 +1,5 @@
 list(APPEND SourceFiles "ExampleLib.cpp")
 
-createlibrary(ExampleLib ${SourceFiles} . interface)
+configure_library(ExampleLib ${SourceFiles} . interface)
 
 add_subdirectory(tests)
