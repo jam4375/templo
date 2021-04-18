@@ -1,20 +1,32 @@
-function(configure_library LibraryName LibrarySourceFiles LibrarySourceDirectory LibraryInterfaceDirectory)
-    set(LibraryTargetName ${PROJECT_NAME}_${LibraryName})
+function(configure_library)
+    set(options HEADER_ONLY)
+    set(oneValueArgs NAME SOURCE_DIR INTERFACE_DIR)
+    set(multiValueArgs SOURCE_FILES BUILD_LINK_LIBRARIES INTERFACE_LINK_LIBRARIES)
+    cmake_parse_arguments(LIB "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+    set(LibraryTargetName ${PROJECT_NAME}_${LIB_NAME})
 
     message(
         STATUS
-            "Configuring library ${LibraryName} with target \"${LibraryTargetName}\" and alias \"${PROJECT_NAME}::${LibraryName}\""
+            "Configuring library ${LIB_NAME} with target \"${LibraryTargetName}\" and alias \"${PROJECT_NAME}::${LIB_NAME}\""
     )
 
-    add_library(${LibraryTargetName} ${LibrarySourceFiles})
-    add_library(${PROJECT_NAME}::${LibraryName} ALIAS ${LibraryTargetName})
+    if(${LIB_HEADER_ONLY})
+        message(FATAL_ERROR "'configure_library' cmake function does not yet support header only libraries")
+    endif()
 
-    target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LibrarySourceDirectory}
-                                                            ${CMAKE_CURRENT_SOURCE_DIR}/${LibraryInterfaceDirectory})
+    add_library(${LibraryTargetName} ${LIB_SOURCE_FILES})
+    add_library(${PROJECT_NAME}::${LIB_NAME} ALIAS ${LibraryTargetName})
+
+    target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_SOURCE_DIR}
+                                                            ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR})
 
     target_include_directories(
-        ${LibraryTargetName}
-        INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LibraryInterfaceDirectory}>
-                  $<INSTALL_INTERFACE:${LibraryInterfaceDirectory}> # <prefix>/${LibraryInterfaceDirectory}
+        ${LibraryTargetName} INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR}>
+                                       $<INSTALL_INTERFACE:${LIB_INTERFACE_DIR}> # <prefix>/${LIB_INTERFACE_DIR}
     )
+
+    target_link_libraries(${LibraryTargetName} PRIVATE ${LIB_BUILD_LINK_LIBRARIES})
+
+    target_link_libraries(${LibraryTargetName} PUBLIC ${LIB_INTERFACE_LINK_LIBRARIES})
 endfunction()
