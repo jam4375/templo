@@ -2,13 +2,13 @@
 
 #include <cxxopts.hpp>
 
-namespace ExampleApp {
+namespace templo::ExampleApp {
 static auto Run() -> int {
     ExampleLib::PrintMessage("Hello world");
 
     return 0;
 }
-} // namespace ExampleApp
+} // namespace templo::ExampleApp
 
 auto main(int argc, char **argv) -> int {
     std::unique_ptr<cxxopts::Options> options;
@@ -30,7 +30,7 @@ auto main(int argc, char **argv) -> int {
             std::exit(0);
         }
 
-        return ExampleApp::Run();
+        return templo::ExampleApp::Run();
     } catch (const cxxopts::option_not_exists_exception &e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
         std::cout << std::endl;

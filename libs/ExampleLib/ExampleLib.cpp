@@ -2,6 +2,6 @@
 
 #include <iostream>
 
-namespace ExampleLib {
+namespace templo::ExampleLib {
 void PrintMessage(const std::string &message) { std::cout << message << std::endl; }
-} // namespace ExampleLib
+} // namespace templo::ExampleLib

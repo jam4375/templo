@@ -2,6 +2,6 @@
 
 #include <string>
 
-namespace ExampleLib {
+namespace templo::ExampleLib {
 void PrintMessage(const std::string &message);
 }
