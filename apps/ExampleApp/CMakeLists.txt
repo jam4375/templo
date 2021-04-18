@@ -1,7 +1,11 @@
+# Set the version string inside the main source file:
 configure_file(main.cpp main.cpp)
 
-add_executable(${PROJECT_NAME}_ExampleApp ${CMAKE_CURRENT_BINARY_DIR}/main.cpp)
+# cmake-format: off
+configure_executable(NAME ExampleApp
+                     SOURCE_FILES ${CMAKE_CURRENT_BINARY_DIR}/main.cpp
+                     SOURCE_DIR "."
+                     BUILD_LINK_LIBRARIES ${PROJECT_NAME}::ExampleLib cxxopts)
+# cmake-format: on
 
-target_include_directories(${PROJECT_NAME}_ExampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-target_link_libraries(${PROJECT_NAME}_ExampleApp PRIVATE ${PROJECT_NAME}::ExampleLib cxxopts)
+add_test(NAME ${PROJECT_NAME}_ExampleApp_test COMMAND $<TARGET_FILE:${PROJECT_NAME}_ExampleApp> -h)
