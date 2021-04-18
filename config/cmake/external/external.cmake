@@ -4,8 +4,8 @@ set(CMAKE_CXX_CLANG_TIDY
     ""
     CACHE INTERNAL "Disable clang-tidy for external targets")
 
-include("${${CMAKE_PROJECT_NAME}_SOURCE_DIR}/config/cmake/external/gtest.cmake")
-include("${${CMAKE_PROJECT_NAME}_SOURCE_DIR}/config/cmake/external/cxxopts.cmake")
+include("${${PROJECT_NAME}_SOURCE_DIR}/config/cmake/external/gtest.cmake")
+include("${${PROJECT_NAME}_SOURCE_DIR}/config/cmake/external/cxxopts.cmake")
 
 # Restore clang-tidy configuration:
 set(CMAKE_CXX_CLANG_TIDY

@@ -4,7 +4,7 @@
 
 TEST(ExampleLibTest, Simple) {
     EXPECT_TRUE(true);
-    EXPECT_NO_THROW(PrintMessage("this is a test"));
+    EXPECT_NO_THROW(ExampleLib::PrintMessage("this is a test"));
 }
 
 int main(int argc, char **argv) {

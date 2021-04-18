@@ -4,7 +4,8 @@
 
 namespace ExampleApp {
 static auto Run() -> int {
-    PrintMessage("Hello world");
+    ExampleLib::PrintMessage("Hello world");
+
     return 0;
 }
 } // namespace ExampleApp
@@ -12,9 +13,9 @@ static auto Run() -> int {
 auto main(int argc, char **argv) -> int {
     std::unique_ptr<cxxopts::Options> options;
     try {
-        options = std::make_unique<cxxopts::Options>("ExampleApp",
-                                                     "ExampleApp: example application for the templo template "
-                                                     "repository (Version: ${${CMAKE_PROJECT_NAME}_GIT_VERSION})");
+        options =
+            std::make_unique<cxxopts::Options>("ExampleApp", "ExampleApp: example application for the templo template "
+                                                             "repository (Version: ${${PROJECT_NAME}_GIT_VERSION})");
 
         // clang-format off
         options->add_options()
