@@ -1,4 +1,8 @@
 function(configure_test_executable)
+    if(NOT ${PROJECT_NAME}_ENABLE_TESTS)
+        return()
+    endif()
+
     set(oneValueArgs NAME SOURCE_DIR)
     set(multiValueArgs SOURCE_FILES BUILD_LINK_LIBRARIES)
     cmake_parse_arguments(TEST_EXE "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})

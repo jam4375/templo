@@ -18,8 +18,7 @@ function(configure_library)
     add_library(${LibraryTargetName} ${LIB_SOURCE_FILES})
     add_library(${PROJECT_NAME}::${LIB_NAME} ALIAS ${LibraryTargetName})
 
-    target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_SOURCE_DIR}
-                                                            ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR})
+    target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_SOURCE_DIR})
 
     target_include_directories(
         ${LibraryTargetName} INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR}>

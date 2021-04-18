@@ -1,4 +1,4 @@
-#include "ExampleLib/ExampleLib.h"
+#include "interface/ExampleLib/ExampleLib.h"
 
 #include <iostream>
 
