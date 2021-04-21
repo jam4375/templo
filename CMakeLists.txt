@@ -5,6 +5,9 @@ project(templo CXX)
 # Setup project configuration:
 include("${${PROJECT_NAME}_SOURCE_DIR}/config/config.cmake")
 
+# Add documentation directory:
+add_subdirectory(docs)
+
 # Add source code directories:
 add_subdirectory(apps)
 add_subdirectory(libs)
