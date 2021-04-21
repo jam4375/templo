@@ -12,20 +12,26 @@ function(configure_library)
     )
 
     if(${LIB_HEADER_ONLY})
-        message(FATAL_ERROR "'configure_library' cmake function does not yet support header only libraries")
+        add_library(${LibraryTargetName} INTERFACE)
+        add_library(${PROJECT_NAME}::${LIB_NAME} ALIAS ${LibraryTargetName})
+
+        target_include_directories(${LibraryTargetName} INTERFACE ${LIB_INTERFACE_DIR})
+
+        target_link_libraries(${LibraryTargetName} INTERFACE ${LIB_INTERFACE_LINK_LIBRARIES})
+    else()
+
+        add_library(${LibraryTargetName} ${LIB_SOURCE_FILES})
+        add_library(${PROJECT_NAME}::${LIB_NAME} ALIAS ${LibraryTargetName})
+
+        target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_SOURCE_DIR})
+
+        target_include_directories(
+            ${LibraryTargetName} INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR}>
+                                           $<INSTALL_INTERFACE:${LIB_INTERFACE_DIR}> # <prefix>/${LIB_INTERFACE_DIR}
+        )
+
+        target_link_libraries(${LibraryTargetName} PRIVATE ${LIB_BUILD_LINK_LIBRARIES})
+
+        target_link_libraries(${LibraryTargetName} PUBLIC ${LIB_INTERFACE_LINK_LIBRARIES})
     endif()
-
-    add_library(${LibraryTargetName} ${LIB_SOURCE_FILES})
-    add_library(${PROJECT_NAME}::${LIB_NAME} ALIAS ${LibraryTargetName})
-
-    target_include_directories(${LibraryTargetName} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_SOURCE_DIR})
-
-    target_include_directories(
-        ${LibraryTargetName} INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LIB_INTERFACE_DIR}>
-                                       $<INSTALL_INTERFACE:${LIB_INTERFACE_DIR}> # <prefix>/${LIB_INTERFACE_DIR}
-    )
-
-    target_link_libraries(${LibraryTargetName} PRIVATE ${LIB_BUILD_LINK_LIBRARIES})
-
-    target_link_libraries(${LibraryTargetName} PUBLIC ${LIB_INTERFACE_LINK_LIBRARIES})
 endfunction()
