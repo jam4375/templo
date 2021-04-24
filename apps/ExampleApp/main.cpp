@@ -27,7 +27,7 @@ auto main(int argc, char **argv) -> int {
 
         if (result.count("help") == 1) {
             std::cout << options->help() << std::endl;
-            std::exit(0);
+            std::exit(0); // NOLINT(concurrency-mt-unsafe)
         }
 
         // Entry point:
@@ -36,11 +36,11 @@ auto main(int argc, char **argv) -> int {
         std::cerr << "ERROR: " << e.what() << std::endl;
         std::cout << std::endl;
         std::cout << options->help() << std::endl;
-        std::exit(1);
+        std::exit(1); // NOLINT(concurrency-mt-unsafe)
     } catch (const std::exception &e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
         std::cout << std::endl;
         std::cout << options->help() << std::endl;
-        std::exit(1);
+        std::exit(1); // NOLINT(concurrency-mt-unsafe)
     }
 }
