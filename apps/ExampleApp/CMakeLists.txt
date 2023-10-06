@@ -8,4 +8,4 @@ configure_executable(NAME ExampleApp
                      BUILD_LINK_LIBRARIES ${PROJECT_NAME}::ExampleLib cxxopts)
 # cmake-format: on
 
-add_test(NAME ${PROJECT_NAME}_ExampleApp_test COMMAND $<TARGET_FILE:${PROJECT_NAME}_ExampleApp> -h)
+add_test(NAME ExampleApp_test COMMAND $<TARGET_FILE:ExampleApp> -h)
